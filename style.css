@@ -1,0 +1,27 @@
+body {
+  background-color: black;
+  color: white;
+}
+
+/* Country card */
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.country {
+  display: flex;
+  flex-direction: column;
+  background-color: grey;
+  flex: 0 0 0;
+  width: calc(20% - 20px); /* Adjust for margin */
+
+  margin: 10px;
+  justify-content: center;
+}
+
+.country__data {
+  padding: 10px 20px;
+}
