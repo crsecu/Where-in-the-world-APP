@@ -3,8 +3,14 @@ body {
   color: white;
 }
 
-/* Country card */
+.btn__hide {
+  display: none;
+}
 
+.btn__show {
+  display: block;
+}
+/* Country card */
 .container {
   display: flex;
   flex-wrap: wrap;
