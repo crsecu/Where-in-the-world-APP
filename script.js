@@ -19,8 +19,8 @@ const fetchCountries = async function (url, func) {
   }
 };
 
-const createCountryCard = function (country) {
-  return `<div class="country">
+const createCountryCard = function (country, isDetail = false) {
+  const card = `<div class="country">
   <img class="country__img" src="${country.flags.png}" alt="${country.flags.alt}"/>
   <div class="country__data">
     <h3 class="country__name">${country.name.official}</h3>
@@ -29,13 +29,34 @@ const createCountryCard = function (country) {
     <p class="country__capital">${country.capital}</p>
   </div>
 </div>`;
+
+  //Display neighbors on Country Detail
+  let neighbours = `<div><h3>Neighbours</h3>`;
+  if (country.borders && country.borders.length > 0) {
+    neighbours += country.borders
+      .map(neighbour => `<span class="country__neighbor">${neighbour}</span>`)
+      .join('');
+  } else {
+    neighbours += 'No neighbouring countries';
+  }
+
+  neighbours += '</div>';
+
+  if (!isDetail) {
+    return card;
+  } else {
+    return `${card} ${neighbours}`;
+  }
 };
 
 //Display all countries or a singler country (per user's search)
-const displayCountry = function (data) {
+const displayCountry = function (data, isDetail = false) {
   container.innerHTML = '';
   data.forEach(country => {
-    container.insertAdjacentHTML('beforeEnd', createCountryCard(country));
+    container.insertAdjacentHTML(
+      'beforeEnd',
+      createCountryCard(country, isDetail)
+    );
   });
 };
 
@@ -61,7 +82,8 @@ const searchCountry = function (searchedValue) {
   const filteredCountries = allCountries.filter(country =>
     country.name.common.toLowerCase().includes(searchedValue)
   );
-  displayCountry(filteredCountries);
+  displayCountry(filteredCountries, true);
+  console.log('country', filteredCountries);
 };
 
 //Initial call to fetch countries
