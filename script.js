@@ -20,10 +20,10 @@ const fetchCountries = async function (url, func) {
 };
 
 const createCountryCard = function (country, isDetail = false) {
-  const card = `<div class="country">
+  const card = `<div class="country" data-name="${country.name.common}">
   <img class="country__img" src="${country.flags.png}" alt="${country.flags.alt}"/>
   <div class="country__data">
-    <h3 class="country__name">${country.name.official}</h3>
+    <h3 class="country__name">${country.name.common}</h3>
     <p class="country__population">${country.population}</p>
     <p class="country__region">${country.region}</p>
     <p class="country__capital">${country.capital}</p>
@@ -82,9 +82,25 @@ const searchCountry = function (searchedValue) {
   const filteredCountries = allCountries.filter(country =>
     country.name.common.toLowerCase().includes(searchedValue)
   );
+
+  console.log('country HERE', searchedValue);
   displayCountry(filteredCountries, true);
-  console.log('country', filteredCountries);
 };
 
 //Initial call to fetch countries
 fetchCountries('https://restcountries.com/v3.1/all');
+
+//Built functionality that opens up detail page on click
+container.addEventListener('click', function (e) {
+  const countryDiv = e.target.closest('.country');
+  if (countryDiv) {
+    countryData = countryDiv.getAttribute('data-name');
+    console.log(countryData);
+    searchCountry(countryData.toLowerCase());
+  }
+});
+
+//To Do
+/*Consider making an API call to get each country - curent filtering method doesn't 
+yield exact results, as there are countries with similar names
+ */
