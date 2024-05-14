@@ -1,6 +1,5 @@
 const container = document.querySelector('.container');
 const searchBar = document.querySelector('#search-country');
-const searchBtn = document.querySelector('.search__btn');
 const searchCont = document.querySelector('.search__container');
 const goBackBtn = document.querySelector('.goBack__btn');
 
@@ -60,15 +59,13 @@ const displayCountry = function (data, isDetail = false) {
   });
 };
 
-//Event Listeners
-searchBtn.addEventListener('click', function () {
-  let searchValue = searchBar.value.toLowerCase();
-  searchBar.value = '';
-  searchCountry(searchValue);
+//EVENT LISTENERS
 
-  searchCont.style.display = 'none';
-  goBackBtn.classList.remove('btn__hide');
-  goBackBtn.classList.add('btn__show');
+//Give user real time feedback about queried country
+searchBar.addEventListener('input', function () {
+  let searchValue = searchBar.value.toLowerCase();
+  searchCountry(searchValue);
+  console.log('search search');
 });
 
 goBackBtn.addEventListener('click', function () {
@@ -83,7 +80,6 @@ const searchCountry = function (searchedValue) {
     country.name.common.toLowerCase().includes(searchedValue)
   );
 
-  console.log('country HERE', searchedValue);
   displayCountry(filteredCountries, true);
 };
 
@@ -95,12 +91,7 @@ container.addEventListener('click', function (e) {
   const countryDiv = e.target.closest('.country');
   if (countryDiv) {
     countryData = countryDiv.getAttribute('data-name');
-    console.log(countryData);
+    console.log('CHECKING DATA', countryData);
     searchCountry(countryData.toLowerCase());
   }
 });
-
-//To Do
-/*Consider making an API call to get each country - curent filtering method doesn't 
-yield exact results, as there are countries with similar names
- */
