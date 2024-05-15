@@ -35,3 +35,7 @@ body {
 .country__neighbor {
   margin-right: 6px;
 }
+
+#search-country {
+  font-size: 1.5rem;
+}

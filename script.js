@@ -18,6 +18,9 @@ const fetchCountries = async function (url) {
   }
 };
 
+//Initial call to fetch countries
+fetchCountries('https://restcountries.com/v3.1/all');
+
 const createCountryCard = function (country, isDetail = false) {
   const card = `<div class="country" data-name="${country.name.common}">
   <img class="country__img" src="${country.flags.png}" alt="${country.flags.alt}"/>
@@ -49,6 +52,7 @@ const createCountryCard = function (country, isDetail = false) {
 };
 
 //Display all countries or a single country (per user's search)
+//when isDetail === true, we will be able to see country detail page with neighbors
 const displayCountry = function (data, isDetail = false) {
   container.innerHTML = '';
   data.forEach(country => {
@@ -59,19 +63,29 @@ const displayCountry = function (data, isDetail = false) {
   });
 };
 
+//filter client-side data to find a country
+const filteredCountry = function (query) {
+  const filteredCountries = allCountries.filter(
+    country =>
+      country.name.common.toLowerCase().includes(query) ||
+      country.name.official.toLowerCase().includes(query)
+  );
+  console.log('result', filteredCountries);
+  displayCountry(filteredCountries);
+};
+
 //EVENT LISTENERS
 
 //Give user real time feedback about queried country
 searchInput.addEventListener('input', function () {
-  let query = searchInput.value.toLowerCase();
+  let query = searchInput.value.trim().toLowerCase();
   if (query) {
     filteredCountry(query);
-    filteredCountry;
 
     // If input length is more than 3 characters, make an API call for exact matc
-    if (query.length > 3) {
-      searchCountry(query);
-    }
+    // if (query.length > 3) {
+    //   searchCountry(query);
+    // }
   }
 });
 
@@ -82,40 +96,16 @@ goBackBtn.addEventListener('click', function () {
   searchCont.style.display = 'block';
 });
 
-//filter client-side data to find a country
-const filteredCountry = function (query) {
-  const filteredCountries = allCountries.filter(country =>
-    country.name.common.toLowerCase().includes(query)
-  );
-
-  displayCountry(filteredCountries);
-};
-
-const searchCountry = function (query) {
-  //Exact match needed - here we are making another api call if there is no exact match for user input
-  fetch(`https://restcountries.com/v3.1/name/${query}?fullText=true`)
-    .then(response => response.json())
-    .then(data => {
-      if (data.status === 404) {
-        //No exact match found, fall back to partial matches
-        filteredCountry(query);
-      } else {
-        //Exact match found
-        displayCountry(data, true);
-      }
-    })
-    .catch(err => console.error('Found an error ', err));
-};
-
-//Initial call to fetch countries
-fetchCountries('https://restcountries.com/v3.1/all');
-
 //Built functionality that opens up detail page on click
 container.addEventListener('click', function (e) {
   const countryDiv = e.target.closest('.country');
+
   if (countryDiv) {
     countryData = countryDiv.getAttribute('data-name');
-    console.log('CHECKING DATA', countryData);
-    searchCountry(countryData.toLowerCase());
+    const findCountry = allCountries.filter(
+      country => country.name.common === countryData
+    );
+    console.log('fc', findCountry);
+    displayCountry(findCountry, true);
   }
 });
