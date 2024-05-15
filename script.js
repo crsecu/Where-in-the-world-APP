@@ -114,4 +114,8 @@ container.addEventListener('click', function (e) {
     );
     displayCountry(findNeighbor, true);
   }
+
+  searchCont.style.display = 'none';
+  goBackBtn.classList.remove('btn__hide');
+  goBackBtn.classList.add('btn__show');
 });
