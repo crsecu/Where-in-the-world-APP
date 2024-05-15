@@ -1,5 +1,5 @@
 const container = document.querySelector('.container');
-const searchBar = document.querySelector('#search-country');
+const searchInput = document.querySelector('#search-country');
 const searchCont = document.querySelector('.search__container');
 const goBackBtn = document.querySelector('.goBack__btn');
 
@@ -7,7 +7,7 @@ const goBackBtn = document.querySelector('.goBack__btn');
 let allCountries = [];
 
 //1. Make API request and fetch all countries
-const fetchCountries = async function (url, func) {
+const fetchCountries = async function (url) {
   try {
     const request = await fetch(url);
     allCountries = await request.json();
@@ -48,7 +48,7 @@ const createCountryCard = function (country, isDetail = false) {
   }
 };
 
-//Display all countries or a singler country (per user's search)
+//Display all countries or a single country (per user's search)
 const displayCountry = function (data, isDetail = false) {
   container.innerHTML = '';
   data.forEach(country => {
@@ -62,10 +62,17 @@ const displayCountry = function (data, isDetail = false) {
 //EVENT LISTENERS
 
 //Give user real time feedback about queried country
-searchBar.addEventListener('input', function () {
-  let searchValue = searchBar.value.toLowerCase();
-  searchCountry(searchValue);
-  console.log('search search');
+searchInput.addEventListener('input', function () {
+  let query = searchInput.value.toLowerCase();
+  if (query) {
+    filteredCountry(query);
+    filteredCountry;
+
+    // If input length is more than 3 characters, make an API call for exact matc
+    if (query.length > 3) {
+      searchCountry(query);
+    }
+  }
 });
 
 goBackBtn.addEventListener('click', function () {
@@ -75,12 +82,29 @@ goBackBtn.addEventListener('click', function () {
   searchCont.style.display = 'block';
 });
 
-const searchCountry = function (searchedValue) {
+//filter client-side data to find a country
+const filteredCountry = function (query) {
   const filteredCountries = allCountries.filter(country =>
-    country.name.common.toLowerCase().includes(searchedValue)
+    country.name.common.toLowerCase().includes(query)
   );
 
-  displayCountry(filteredCountries, true);
+  displayCountry(filteredCountries);
+};
+
+const searchCountry = function (query) {
+  //Exact match needed - here we are making another api call if there is no exact match for user input
+  fetch(`https://restcountries.com/v3.1/name/${query}?fullText=true`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.status === 404) {
+        //No exact match found, fall back to partial matches
+        filteredCountry(query);
+      } else {
+        //Exact match found
+        displayCountry(data, true);
+      }
+    })
+    .catch(err => console.error('Found an error ', err));
 };
 
 //Initial call to fetch countries
