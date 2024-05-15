@@ -2,6 +2,7 @@ const container = document.querySelector('.container');
 const searchInput = document.querySelector('#search-country');
 const searchCont = document.querySelector('.search__container');
 const goBackBtn = document.querySelector('.goBack__btn');
+const regionsSelect = document.querySelector('#regions');
 
 //This will store all countries data
 let allCountries = [];
@@ -85,6 +86,7 @@ searchInput.addEventListener('input', function () {
   }
 });
 
+//Go back to main page
 goBackBtn.addEventListener('click', function () {
   displayCountry(allCountries);
   goBackBtn.classList.remove('btn__show');
@@ -118,4 +120,14 @@ container.addEventListener('click', function (e) {
   searchCont.style.display = 'none';
   goBackBtn.classList.remove('btn__hide');
   goBackBtn.classList.add('btn__show');
+});
+
+//Filter countries by region
+regionsSelect.addEventListener('change', function () {
+  const selectedRegion = regionsSelect.value;
+  const filterRegion = allCountries.filter(
+    country => country.region === selectedRegion
+  );
+
+  displayCountry(filterRegion);
 });
