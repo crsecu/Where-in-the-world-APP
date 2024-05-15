@@ -33,10 +33,13 @@ const createCountryCard = function (country, isDetail = false) {
 </div>`;
 
   //Display neighbors on Country Detail
-  let neighbours = `<div><h3>Neighbours</h3>`;
+  let neighbours = `<div class="country__neighbors"><h3>Neighbours</h3>`;
   if (country.borders && country.borders.length > 0) {
     neighbours += country.borders
-      .map(neighbour => `<span class="country__neighbor">${neighbour}</span>`)
+      .map(
+        neighbour =>
+          `<span class="country__neighbor" data-name="${neighbour}">${neighbour}</span>`
+      )
       .join('');
   } else {
     neighbours += 'No neighbouring countries';
@@ -51,8 +54,8 @@ const createCountryCard = function (country, isDetail = false) {
   }
 };
 
-//Display all countries or a single country (per user's search)
-//when isDetail === true, we will be able to see country detail page with neighbors
+// Display either all countries or a single country based on the user's search.
+// When 'isDetail' is set to true, the country card will also show neighboring countries.
 const displayCountry = function (data, isDetail = false) {
   container.innerHTML = '';
   data.forEach(country => {
@@ -70,22 +73,15 @@ const filteredCountry = function (query) {
       country.name.common.toLowerCase().includes(query) ||
       country.name.official.toLowerCase().includes(query)
   );
-  console.log('result', filteredCountries);
   displayCountry(filteredCountries);
 };
 
 //EVENT LISTENERS
-
 //Give user real time feedback about queried country
 searchInput.addEventListener('input', function () {
   let query = searchInput.value.trim().toLowerCase();
   if (query) {
     filteredCountry(query);
-
-    // If input length is more than 3 characters, make an API call for exact matc
-    // if (query.length > 3) {
-    //   searchCountry(query);
-    // }
   }
 });
 
@@ -98,14 +94,24 @@ goBackBtn.addEventListener('click', function () {
 
 //Built functionality that opens up detail page on click
 container.addEventListener('click', function (e) {
-  const countryDiv = e.target.closest('.country');
+  const countryEl = e.target.closest('.country');
+  const neighborEl = e.target.classList.contains('country__neighbor');
 
-  if (countryDiv) {
-    countryData = countryDiv.getAttribute('data-name');
+  //Open Detail Page
+  if (countryEl) {
+    countryData = countryEl.getAttribute('data-name');
     const findCountry = allCountries.filter(
       country => country.name.common === countryData
     );
-    console.log('fc', findCountry);
     displayCountry(findCountry, true);
+  }
+
+  //Open Neighbor Detail Page
+  if (neighborEl) {
+    neighborData = e.target.getAttribute('data-name');
+    const findNeighbor = allCountries.filter(
+      country => country.cca3 === neighborData
+    );
+    displayCountry(findNeighbor, true);
   }
 });
