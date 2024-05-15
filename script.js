@@ -95,10 +95,12 @@ const findCountry = function (query) {
 searchInput.addEventListener(
   'input',
   debounce(function () {
-    console.log('IIIIIIIIII');
     let query = searchInput.value.trim().toLowerCase();
+    console.log('query', query);
     if (query) {
       findCountry(query);
+    } else {
+      displayCountry(allCountries);
     }
   }, 300)
 );
