@@ -22,6 +22,7 @@ const fetchCountries = async function (url) {
 //Initial call to fetch countries
 fetchCountries('https://restcountries.com/v3.1/all');
 
+//Function to create country card
 const createCountryCard = function (country, isDetail = false) {
   const card = `<div class="country" data-name="${country.name.common}">
   <img class="country__img" src="${country.flags.png}" alt="${country.flags.alt}"/>
@@ -67,8 +68,20 @@ const displayCountry = function (data, isDetail = false) {
   });
 };
 
-//filter client-side data to find a country
-const filteredCountry = function (query) {
+//Debounce Fn
+function debounce(func, delay) {
+  let timeout = null;
+  return function () {
+    if (timeout) clearTimeout(timeout);
+
+    timeout = setTimeout(() => {
+      func();
+    }, delay);
+  };
+}
+
+//Filter client-side data to find a country
+const findCountry = function (query) {
   const filteredCountries = allCountries.filter(
     country =>
       country.name.common.toLowerCase().includes(query) ||
@@ -79,12 +92,16 @@ const filteredCountry = function (query) {
 
 //EVENT LISTENERS
 //Give user real time feedback about queried country
-searchInput.addEventListener('input', function () {
-  let query = searchInput.value.trim().toLowerCase();
-  if (query) {
-    filteredCountry(query);
-  }
-});
+searchInput.addEventListener(
+  'input',
+  debounce(function () {
+    console.log('IIIIIIIIII');
+    let query = searchInput.value.trim().toLowerCase();
+    if (query) {
+      findCountry(query);
+    }
+  }, 300)
+);
 
 //Go back to main page
 goBackBtn.addEventListener('click', function () {
@@ -94,7 +111,7 @@ goBackBtn.addEventListener('click', function () {
   searchCont.style.display = 'block';
 });
 
-//Built functionality that opens up detail page on click
+//Open detail page on click
 container.addEventListener('click', function (e) {
   const countryEl = e.target.closest('.country');
   const neighborEl = e.target.classList.contains('country__neighbor');
@@ -102,10 +119,10 @@ container.addEventListener('click', function (e) {
   //Open Detail Page
   if (countryEl) {
     countryData = countryEl.getAttribute('data-name');
-    const findCountry = allCountries.filter(
+    const country = allCountries.filter(
       country => country.name.common === countryData
     );
-    displayCountry(findCountry, true);
+    displayCountry(country, true);
   }
 
   //Open Neighbor Detail Page
@@ -125,9 +142,12 @@ container.addEventListener('click', function (e) {
 //Filter countries by region
 regionsSelect.addEventListener('change', function () {
   const selectedRegion = regionsSelect.value;
-  const filterRegion = allCountries.filter(
-    country => country.region === selectedRegion
-  );
-
-  displayCountry(filterRegion);
+  if (selectedRegion === 'All') {
+    displayCountry(allCountries);
+  } else {
+    const filterRegion = allCountries.filter(
+      country => country.region === selectedRegion
+    );
+    displayCountry(filterRegion);
+  }
 });
