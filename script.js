@@ -28,9 +28,9 @@ const createCountryCard = function (country, isDetail = false) {
   <img class="country__img" src="${country.flags.png}" alt="${country.flags.alt}"/>
   <div class="country__data">
     <h3 class="country__name">${country.name.common}</h3>
-    <p class="country__population">Population:${country.population}</p>
-    <p class="country__region">Region:${country.region}</p>
-    <p class="country__capital">Capital:${country.capital}</p>
+    <p class="country__population"><span>Population</span>: ${country.population}</p>
+    <p class="country__region"><span>Region:</span> ${country.region}</p>
+    <p class="country__capital"><span>Capital:</span> ${country.capital}</p>
   </div>
 </div>`;
 
