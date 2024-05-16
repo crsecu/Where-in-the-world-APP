@@ -83,6 +83,10 @@ body {
   padding: 0 2.5rem;
 }
 
+.regions__container {
+  margin-bottom: 2rem;
+}
+
 .country {
   display: flex;
   flex-direction: column;
@@ -111,10 +115,20 @@ body {
   padding-bottom: 0.75rem;
 }
 
-/* OLD STYLING */
-/* body {
-  background-color: black;
-  color: white;
+select:focus option.label-name {
+  display: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .btn__hide {
@@ -124,6 +138,25 @@ body {
 .btn__show {
   display: block;
 }
+
+select {
+  font-size: 1.25rem;
+  padding: 16px 24px;
+  border: none;
+  box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
+  border-radius: 0 0 6px 6px;
+}
+
+select option {
+}
+
+/* OLD STYLING */
+/* body {
+  background-color: black;
+  color: white;
+}
+
+
 
 .container {
   display: flex;

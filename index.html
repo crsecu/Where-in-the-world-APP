@@ -30,15 +30,20 @@
     <br />
     <br />
     <!-- Choose by region dropdown list -->
-    <label for="regions">Filter by region</label>
-    <select id="regions">
-      <option value="All">All</option>
-      <option value="Africa">Africa</option>
-      <option value="Americas">America</option>
-      <option value="Asia">Asia</option>
-      <option value="Europe">Europe</option>
-      <option value="Oceania">Oceania</option>
-    </select>
+    <div class="regions__container">
+      <label for="regions" id="regions-label" class="sr-only"
+        >Filter by region</label
+      >
+      <select id="regions">
+        <option class="label-name">Filter by Region</option>
+        <option value="All">All</option>
+        <option value="Africa">Africa</option>
+        <option value="Americas">America</option>
+        <option value="Asia">Asia</option>
+        <option value="Europe">Europe</option>
+        <option value="Oceania">Oceania</option>
+      </select>
+    </div>
 
     <div class="container">
       <!-- <div class="country">

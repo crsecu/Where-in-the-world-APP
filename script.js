@@ -2,6 +2,7 @@ const container = document.querySelector('.container');
 const searchInput = document.querySelector('#search-country');
 const searchCont = document.querySelector('.search__container');
 const goBackBtn = document.querySelector('.goBack__btn');
+const regionsCont = document.querySelector('.regions__container');
 const regionsSelect = document.querySelector('#regions');
 
 //This will store all countries data
@@ -97,28 +98,40 @@ searchInput.addEventListener(
   debounce(function () {
     let query = searchInput.value.trim().toLowerCase();
     console.log('query', query);
+
     if (query) {
       findCountry(query);
+      regionsSelect.style.display = 'none';
     } else {
       displayCountry(allCountries);
+      regionsSelect.style.display = 'block';
     }
   }, 300)
 );
 
 //Go back to main page
 goBackBtn.addEventListener('click', function () {
+  regionsCont.style.display = 'block';
   displayCountry(allCountries);
   goBackBtn.classList.remove('btn__show');
   goBackBtn.classList.add('btn__hide');
   searchCont.style.display = 'block';
+
+  //Clear out input field
+  searchInput.value = '';
+  //Reset values of dropdown to inital states
+  regionsSelect.selectedIndex = 0;
 });
 
-//Open detail page on click
+//Open Detail View on click
 container.addEventListener('click', function (e) {
   const countryEl = e.target.closest('.country');
   const neighborEl = e.target.classList.contains('country__neighbor');
 
-  //Open Detail Page
+  //Hide Filter by Region dropdown in Detail View
+  regionsCont.style.display = 'none';
+
+  //Open Detail View
   if (countryEl) {
     countryData = countryEl.getAttribute('data-name');
     const country = allCountries.filter(
@@ -127,7 +140,7 @@ container.addEventListener('click', function (e) {
     displayCountry(country, true);
   }
 
-  //Open Neighbor Detail Page
+  //Open Neighbor Detail View
   if (neighborEl) {
     neighborData = e.target.getAttribute('data-name');
     const findNeighbor = allCountries.filter(
