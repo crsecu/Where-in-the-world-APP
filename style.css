@@ -83,10 +83,6 @@ body {
   padding: 0 2.5rem;
 }
 
-.regions__container {
-  margin-bottom: 2rem;
-}
-
 .country {
   display: flex;
   flex-direction: column;
@@ -115,39 +111,54 @@ body {
   padding-bottom: 0.75rem;
 }
 
-select:focus option.label-name {
-  display: none;
+/* Filter Dropdown */
+.filter__btn {
+  background-color: #3498db;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
 }
 
-.sr-only {
+.filter__btn:hover,
+.filter__btn:focus {
+  background-color: #9729b9;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown__content {
+  display: none;
   position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 
-.btn__hide {
-  display: none;
-}
-
-.btn__show {
+.dropdown__content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
   display: block;
 }
 
-select {
-  font-size: 1.25rem;
-  padding: 16px 24px;
-  border: none;
-  box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
-  border-radius: 0 0 6px 6px;
+.dropdown a:hover {
+  background-color: #ddd;
+}
+/* end of filter by region*/
+
+.hide {
+  display: none;
 }
 
-select option {
+.show {
+  display: block;
 }
 
 /* OLD STYLING */

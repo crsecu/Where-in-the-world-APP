@@ -2,8 +2,11 @@ const container = document.querySelector('.container');
 const searchInput = document.querySelector('#search-country');
 const searchCont = document.querySelector('.search__container');
 const goBackBtn = document.querySelector('.goBack__btn');
-const regionsCont = document.querySelector('.regions__container');
-const regionsSelect = document.querySelector('#regions');
+// const regionsCont = document.querySelector('.regions__container');
+// const regionsSelect = document.querySelector('#regions');
+const filterBtn = document.querySelector('.filter__btn');
+const dropdownMenu = document.querySelector('#filter__dropdown');
+let isDropdownOpen = false;
 
 //This will store all countries data
 let allCountries = [];
@@ -101,26 +104,23 @@ searchInput.addEventListener(
 
     if (query) {
       findCountry(query);
-      regionsSelect.style.display = 'none';
     } else {
       displayCountry(allCountries);
-      regionsSelect.style.display = 'block';
     }
   }, 300)
 );
 
 //Go back to main page
 goBackBtn.addEventListener('click', function () {
-  regionsCont.style.display = 'block';
+  filterBtn.style.display = 'block';
+
   displayCountry(allCountries);
-  goBackBtn.classList.remove('btn__show');
-  goBackBtn.classList.add('btn__hide');
+  goBackBtn.classList.remove('show');
+  goBackBtn.classList.add('hide');
   searchCont.style.display = 'block';
 
   //Clear out input field
   searchInput.value = '';
-  //Reset values of dropdown to inital states
-  regionsSelect.selectedIndex = 0;
 });
 
 //Open Detail View on click
@@ -129,7 +129,7 @@ container.addEventListener('click', function (e) {
   const neighborEl = e.target.classList.contains('country__neighbor');
 
   //Hide Filter by Region dropdown in Detail View
-  regionsCont.style.display = 'none';
+  filterBtn.style.display = 'none';
 
   //Open Detail View
   if (countryEl) {
@@ -150,13 +150,20 @@ container.addEventListener('click', function (e) {
   }
 
   searchCont.style.display = 'none';
-  goBackBtn.classList.remove('btn__hide');
-  goBackBtn.classList.add('btn__show');
+  goBackBtn.classList.remove('hide');
+  goBackBtn.classList.add('show');
 });
 
-//Filter countries by region
-regionsSelect.addEventListener('change', function () {
-  const selectedRegion = regionsSelect.value;
+// Filter country by region
+filterBtn.addEventListener('click', function () {
+  isDropdownOpen = true;
+  document.getElementById('filter__dropdown').classList.toggle('show');
+});
+
+dropdownMenu.addEventListener('click', function (e) {
+  const selectedRegion = e.target.dataset.value;
+  dropdownMenu.classList.remove('show');
+
   if (selectedRegion === 'All') {
     displayCountry(allCountries);
   } else {
@@ -164,5 +171,13 @@ regionsSelect.addEventListener('change', function () {
       country => country.region === selectedRegion
     );
     displayCountry(filterRegion);
+  }
+});
+
+// Close dropdown when clicking outside of it
+window.addEventListener('click', function (event) {
+  if (isDropdownOpen && !event.target.closest('.dropdown')) {
+    dropdownMenu.classList.remove('show');
+    isDropdownOpen = false;
   }
 });
