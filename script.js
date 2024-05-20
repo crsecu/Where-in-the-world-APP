@@ -161,16 +161,18 @@ filterBtn.addEventListener('click', function () {
 });
 
 dropdownMenu.addEventListener('click', function (e) {
-  const selectedRegion = e.target.dataset.value;
-  dropdownMenu.classList.remove('show');
+  if (e.target.classList.contains('option')) {
+    const selectedRegion = e.target.dataset.value;
+    dropdownMenu.classList.remove('show');
 
-  if (selectedRegion === 'All') {
-    displayCountry(allCountries);
-  } else {
-    const filterRegion = allCountries.filter(
-      country => country.region === selectedRegion
-    );
-    displayCountry(filterRegion);
+    if (selectedRegion === 'All') {
+      displayCountry(allCountries);
+    } else {
+      const filterRegion = allCountries.filter(
+        country => country.region === selectedRegion
+      );
+      displayCountry(filterRegion);
+    }
   }
 });
 

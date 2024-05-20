@@ -111,45 +111,103 @@ body {
   padding-bottom: 0.75rem;
 }
 
+/* Searchbar */
+.search__container {
+  display: flex;
+  background-color: var(--white);
+  box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
+  padding: 20px 30px;
+  border-radius: 6px;
+}
+.search__input {
+  position: relative;
+  padding-right: 30px;
+  border: none;
+}
+
+.search__input::placeholder {
+  color: rgb(190, 188, 188);
+}
+
+.search__input::after {
+  content: ''; /* Required for pseudo-elements */
+  position: absolute;
+  top: 50%;
+  right: 10px; /* Adjust the right position of the icon */
+  transform: translateY(-50%);
+  width: 20px; /* Adjust the width of the icon */
+  height: 20px; /* Adjust the height of the icon */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>'); /* Inline SVG */
+  background-repeat: no-repeat;
+  background-size: cover; /* Ensure the icon fits within the pseudo-element */
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  color: rgb(179, 176, 176);
+  margin-right: 20px;
+}
+
+/* Searchbar */
+
 /* Filter Dropdown */
 .filter__btn {
-  background-color: #3498db;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--white);
+  font-size: 1.125rem;
+  font-weight: 600;
+  padding: 16px 0;
+  padding-left: 24px;
+  padding-right: 16px;
+  min-width: 240px;
+  border-radius: 6px;
+  box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px;
   border: none;
   cursor: pointer;
+  margin-bottom: 6px;
 }
 
 .filter__btn:hover,
 .filter__btn:focus {
-  background-color: #9729b9;
+  /* background-color: #9729b9; */
 }
 
 .dropdown {
   position: relative;
   display: inline-block;
+  margin-bottom: 26px;
 }
 
 .dropdown__content {
   display: none;
   position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
+  background-color: var(--white);
+  min-width: 240px;
+  padding: 16px 0;
   overflow: auto;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  font-weight: 600;
+  line-height: 2.2;
+  border-radius: 6px;
+  box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px;
 }
 
 .dropdown__content a {
   color: black;
-  padding: 12px 16px;
+  padding: 0 24px;
   text-decoration: none;
   display: block;
 }
 
 .dropdown a:hover {
   background-color: #ddd;
+}
+
+.chevron-down {
+  display: inline;
+  width: 24px;
+  height: 24x;
 }
 /* end of filter by region*/
 

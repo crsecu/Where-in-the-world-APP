@@ -10,6 +10,10 @@
       rel="stylesheet"
     />
     <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <link
       rel="icon"
       type="image/png"
       sizes="32x32"
@@ -22,29 +26,49 @@
   </head>
   <body>
     <div class="search__container">
-      <label for="search-country">Search Country</label>
-      <input type="search" id="search-country" />
+      <!-- <label for="search-country">Search Country</label> -->
+      <span class="material-symbols-outlined">search</span>
+      <input
+        type="search"
+        class="search__input"
+        id="search-country"
+        placeholder="Search for a country..."
+      />
     </div>
-    <button class="goBack__btn btn__hide">Go Back</button>
+    <button class="goBack__btn hide">Go Back</button>
     <br />
     <br />
     <br />
     <!-- Choose by region dropdown list -->
     <div class="dropdown">
-      <button class="filter__btn">Filter by Region</button>
+      <button class="filter__btn">
+        Filter by Region
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+          class="chevron-down w-6 h-6"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </button>
       <div id="filter__dropdown" class="dropdown__content">
-        <a href="#" data-value="All">All</a>
-        <a href="#" data-value="Africa">Africa</a>
-        <a href="#" data-value="Americas">America</a>
-        <a href="#" data-value="Asia">Asia</a>
-        <a href="#" data-value="Europe">Europe</a>
-        <a href="#" data-value="Oceania">Oceania</a>
+        <!-- <a href="#" data-value="All">All</a> -->
+        <a href="#" class="option" data-value="Africa">Africa</a>
+        <a href="#" class="option" data-value="Americas">America</a>
+        <a href="#" class="option" data-value="Asia">Asia</a>
+        <a href="#" class="option" data-value="Europe">Europe</a>
+        <a href="#" class="option" data-value="Oceania">Oceania</a>
       </div>
     </div>
 
     <div class="container">
       <!-- <div class="country">
-        <img class="country-_img" src="$" />
+        <img class="country__img" src="$" />
         <div class="country__data">
           <h3 class="country__name">Romania</h3>
           <p class="country__population">2mil</p>
