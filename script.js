@@ -1,7 +1,7 @@
 const container = document.querySelector('.container');
 const searchInput = document.querySelector('#search-country');
 const searchCont = document.querySelector('.search__container');
-const goBackBtn = document.querySelector('.goBack__btn');
+const goBackBtn = document.querySelector('.back__btn');
 // const regionsCont = document.querySelector('.regions__container');
 // const regionsSelect = document.querySelector('#regions');
 const filterBtn = document.querySelector('.filter__btn');

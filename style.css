@@ -19,6 +19,9 @@
   4. Improve text rendering
 */
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
@@ -94,8 +97,10 @@ header {
 }
 
 main {
-  margin: 1.125rem;
+  flex: 1;
+  margin: 1.5rem 1.125rem 0 1.125rem;
 }
+
 .country {
   display: flex;
   flex-direction: column;
@@ -131,7 +136,8 @@ main {
   justify-content: center;
   background-color: var(--white);
   box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
-  padding: 0 30px;
+  margin-bottom: 50px;
+  padding: 8px 30px;
   border-radius: 6px;
 }
 .search__input {
@@ -195,6 +201,14 @@ input[type='search'] {
   /* background-color: #9729b9; */
 }
 
+.back__btn {
+  border: none;
+  background-color: var(--white);
+  box-shadow: rgba(99, 99, 99, 0.5) 0px 2px 8px;
+  padding: 6px;
+  border-radius: 2px;
+}
+
 .dropdown {
   position: relative;
   display: inline-block;
@@ -248,6 +262,7 @@ footer {
   font-size: 1rem;
   padding: 1rem;
   box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
+  margin-top: auto;
 }
 
 /* OLD STYLING */
