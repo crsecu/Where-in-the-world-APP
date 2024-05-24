@@ -28,7 +28,7 @@ fetchCountries('https://restcountries.com/v3.1/all');
 
 //Function to create country card
 const createCountryCard = function (country, isDetail = false) {
-  const styling = isDetail ? 'country_detail' : 'country';
+  const styling = isDetail ? 'country__detail' : 'country';
   console.log('detail babe', styling);
   const card = `<div class="${styling}" data-name="${country.name.common}">
   <img class="country__img" src="${country.flags.png}" alt="${country.flags.alt}"/>
@@ -41,7 +41,7 @@ const createCountryCard = function (country, isDetail = false) {
 </div>`;
 
   //Display neighbors on Country Detail
-  let neighbours = `<div class="country__neighbors"><h3>Neighbours</h3>`;
+  let neighbours = `<div class="country__neighbors"><h3>Border Countries:</h3><div class="neighbors__container">`;
   if (country.borders && country.borders.length > 0) {
     neighbours += country.borders
       .map(
@@ -53,7 +53,7 @@ const createCountryCard = function (country, isDetail = false) {
     neighbours += 'No neighbouring countries';
   }
 
-  neighbours += '</div>';
+  neighbours += '</div></div>';
 
   if (!isDetail) {
     return card;
