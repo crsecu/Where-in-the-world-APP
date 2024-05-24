@@ -40,12 +40,29 @@ const createCountryCard = function (country, isDetail = false) {
   </div>
 </div>`;
 
+  const cardDetail = `<div class="${styling}" data-name="${country.name.common}">
+<img class="country__img" src="${country.flags.png}" alt="${country.flags.alt}"/>
+<div class="country__data">
+  <h3 class="country__name">${country.name.common}</h3>
+  <p><span>Native Name</span>: 
+  </p>
+  <p><span>Population</span>: ${country.population}</p>
+  <p ><span>Region:</span> ${country.region}</p>
+  <p><span>Region:</span> ${country.subregion}</p>
+  <p><span>Capital:</span> ${country.capital}</p>
+  <br>
+  <p><span>Top Level Domain:</span> ${country.tld}</p>
+  <p><span>Currencies:</span> </p>
+  <p><span>Languages:</span> </p>
+</div>
+</div>`;
+
   const neighbors = displayNeighbors(country);
 
   if (!isDetail) {
     return card;
   } else {
-    return `${card} ${neighbors}`;
+    return `${cardDetail} ${neighbors}`;
   }
 };
 
