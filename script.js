@@ -30,40 +30,49 @@ fetchCountries('https://restcountries.com/v3.1/all');
 const createCountryCard = function (country, isDetail = false) {
   const styling = isDetail ? 'country__detail' : 'country';
 
-  const card = `<div class="${styling}" data-name="${country.name.common}">
-  <img class="country__img" src="${country.flags.png}" alt="${country.flags.alt}"/>
-  <div class="country__data">
-    <h3 class="country__name">${country.name.common}</h3>
-    <p class="country__population"><span>Population</span>: ${country.population}</p>
-    <p class="country__region"><span>Region:</span> ${country.region}</p>
-    <p class="country__capital"><span>Capital:</span> ${country.capital}</p>
-  </div>
-</div>`;
+  if (isDetail) {
+    const getCurrencies = Object.values(country.currencies);
+    const currencyName = getCurrencies[0].name;
 
-  const cardDetail = `<div class="${styling}" data-name="${country.name.common}">
-<img class="country__img" src="${country.flags.png}" alt="${country.flags.alt}"/>
-<div class="country__data">
-  <h3 class="country__name">${country.name.common}</h3>
-  <p><span>Native Name</span>: 
-  </p>
-  <p><span>Population</span>: ${country.population}</p>
-  <p ><span>Region:</span> ${country.region}</p>
-  <p><span>Region:</span> ${country.subregion}</p>
-  <p><span>Capital:</span> ${country.capital}</p>
-  <br>
-  <p><span>Top Level Domain:</span> ${country.tld}</p>
-  <p><span>Currencies:</span> </p>
-  <p><span>Languages:</span> </p>
-</div>
-</div>`;
+    //Country Detail
+    const cardDetail = `<div class="${styling}" data-name="${country.name.common}">
+          <img class="country__img" src="${country.flags.png}" alt="${country.flags.alt}"/>
+          <div class="country__data">
+            <h3 class="country__name">${country.name.common}</h3>
+            <p><span>Native Name</span>: 
+            </p>
+            <p><span>Population</span>: ${country.population}</p>
+            <p><span>Region:</span> ${country.region}</p>
+            <p><span>Region:</span> ${country.subregion}</p>
+            <p><span>Capital:</span> ${country.capital}</p>
+            <br>
+            <p><span>Top Level Domain:</span> ${country.tld}</p>
+            <p><span>Currencies:</span> ${currencyName}</p>
+            <p><span>Languages:</span> </p>
+          </div>
+          </div>`;
 
-  const neighbors = displayNeighbors(country);
-
-  if (!isDetail) {
-    return card;
-  } else {
+    const neighbors = displayNeighbors(country);
     return `${cardDetail} ${neighbors}`;
+  } else {
+    const card = `<div class="${styling}" data-name="${country.name.common}">
+          <img class="country__img" src="${country.flags.png}" alt="${country.flags.alt}"/>
+          <div class="country__data">
+            <h3 class="country__name">${country.name.common}</h3>
+            <p class="country__population"><span>Population</span>: ${country.population}</p>
+            <p class="country__region"><span>Region:</span> ${country.region}</p>
+            <p class="country__capital"><span>Capital:</span> ${country.capital}</p>
+          </div>
+        </div>`;
+
+    return card;
   }
+
+  // if (!isDetail) {
+  //   return card;
+  // } else {
+  //   return `${cardDetail} ${neighbors}`;
+  // }
 };
 
 //Get country name based on country code
