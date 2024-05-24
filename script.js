@@ -28,7 +28,9 @@ fetchCountries('https://restcountries.com/v3.1/all');
 
 //Function to create country card
 const createCountryCard = function (country, isDetail = false) {
-  const card = `<div class="country" data-name="${country.name.common}">
+  const styling = isDetail ? 'country_detail' : 'country';
+  console.log('detail babe', styling);
+  const card = `<div class="${styling}" data-name="${country.name.common}">
   <img class="country__img" src="${country.flags.png}" alt="${country.flags.alt}"/>
   <div class="country__data">
     <h3 class="country__name">${country.name.common}</h3>
