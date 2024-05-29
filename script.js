@@ -31,24 +31,32 @@ const createCountryCard = function (country, isDetail = false) {
   const styling = isDetail ? 'country__detail' : 'country';
 
   if (isDetail) {
-    const getCurrencies = Object.values(country.currencies);
-    const currencyName = getCurrencies[0].name;
+    const getCurrencies = Object.values(country.currencies)[0].name;
+    const getNativeName = Object.values(country.name.nativeName);
+    const nativeName = Object.values(getNativeName);
+    const getLanguages = Object.values(country.languages);
 
     //Country Detail
-    const cardDetail = `<div class="${styling}" data-name="${country.name.common}">
-          <img class="country__img" src="${country.flags.png}" alt="${country.flags.alt}"/>
+    const cardDetail = `<div class="${styling}" data-name="${
+      country.name.common
+    }">
+          <img class="country__img" src="${country.flags.png}" alt="${
+      country.flags.alt
+    }"/>
           <div class="country__data">
             <h3 class="country__name">${country.name.common}</h3>
-            <p><span>Native Name</span>: 
+            <p><span>Native Name</span>: ${nativeName[0].common}
             </p>
-            <p><span>Population</span>: ${country.population}</p>
+            <p><span>Population</span>: ${country.population.toLocaleString()}</p>
             <p><span>Region:</span> ${country.region}</p>
             <p><span>Region:</span> ${country.subregion}</p>
-            <p><span>Capital:</span> ${country.capital}</p>
+            <p><span>Capital:</span> ${
+              country.capital ? country.capital : 'N/A'
+            }</p>
             <br>
             <p><span>Top Level Domain:</span> ${country.tld}</p>
-            <p><span>Currencies:</span> ${currencyName}</p>
-            <p><span>Languages:</span> </p>
+            <p><span>Currencies:</span> ${getCurrencies}</p>
+            <p><span>Languages:</span> ${getLanguages.join(', ')}</p>
           </div>
           </div>`;
 
@@ -56,23 +64,23 @@ const createCountryCard = function (country, isDetail = false) {
     return `${cardDetail} ${neighbors}`;
   } else {
     const card = `<div class="${styling}" data-name="${country.name.common}">
-          <img class="country__img" src="${country.flags.png}" alt="${country.flags.alt}"/>
+          <img class="country__img" src="${country.flags.png}" alt="${
+      country.flags.alt
+    }"/>
           <div class="country__data">
             <h3 class="country__name">${country.name.common}</h3>
-            <p class="country__population"><span>Population</span>: ${country.population}</p>
-            <p class="country__region"><span>Region:</span> ${country.region}</p>
-            <p class="country__capital"><span>Capital:</span> ${country.capital}</p>
+            <p class="country__population"><span>Population</span>: ${country.population.toLocaleString()}</p>
+            <p class="country__region"><span>Region:</span> ${
+              country.region
+            }</p>
+            <p class="country__capital"><span>Capital:</span> ${
+              country.capital ? country.capital : 'N/A'
+            }</p>
           </div>
         </div>`;
 
     return card;
   }
-
-  // if (!isDetail) {
-  //   return card;
-  // } else {
-  //   return `${cardDetail} ${neighbors}`;
-  // }
 };
 
 //Get country name based on country code
@@ -135,6 +143,7 @@ const findCountry = function (query) {
       country.name.common.toLowerCase().includes(query) ||
       country.name.official.toLowerCase().includes(query)
   );
+  console.log(filteredCountries);
   displayCountry(filteredCountries);
 };
 

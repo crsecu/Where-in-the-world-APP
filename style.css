@@ -314,6 +314,41 @@ footer {
   margin-top: auto;
 }
 
+/* Media queries */
+@media only screen and (min-width: 768px) {
+  /* Tablet styles go here */
+  body {
+    /* background-color: green; */
+  }
+
+  main {
+    margin: 1.5rem 3rem 0 3rem;
+  }
+
+  .container {
+    /* display: grid;
+    grid-template-columns: auto;
+    gap: 40px; */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px 30px;
+  }
+
+  .country {
+    margin: 0;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  /* Tablet styles go here */
+  body {
+    background-color: pink;
+  }
+
+  .container {
+    justify-content: space-between;
+  }
+}
 /* OLD STYLING */
 /* body {
   background-color: black;
