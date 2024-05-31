@@ -18,7 +18,6 @@ const fetchCountries = async function (url) {
     const request = await fetch(url);
     allCountries = await request.json();
     displayCountry(allCountries);
-    console.log('all countries', allCountries);
   } catch (err) {
     console.error(err);
   }
