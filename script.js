@@ -73,9 +73,9 @@ const createCountryCard = function (country, isDetail = false) {
     return `${cardDetail}`;
   } else {
     const card = `<div class="${styling}" data-name="${country.name.common}">
-    <div class="img__container"><img class="country__img" src="images/lazy-image.png" alt="${
+    <div class="img__container"><img class="country__img lazy" src="images/lazy-image.png" alt="${
       country.flags.alt
-    }" loading="lazy" data-src="lazy"/> </div>
+    }" loading="lazy" data-src="${country.flags.png}"/> </div>
           <div class="country__data">
             <h3 class="country__name">${country.name.common}</h3>
             <p class="country__population"><span>Population</span>: ${country.population.toLocaleString()}</p>
@@ -123,6 +123,7 @@ const displayNeighbors = function (country) {
 
 // Display either all countries or a single country based on the user's search.
 // When 'isDetail' is set to true, the country card will also show neighboring countries.
+
 const displayCountry = function (data, isDetail = false) {
   container.innerHTML = '';
   data.forEach(country => {
@@ -130,27 +131,38 @@ const displayCountry = function (data, isDetail = false) {
       'beforeEnd',
       createCountryCard(country, isDetail)
     );
+  });
 
-    //Lazy Loading Images
-    const imgTargets = document.querySelectorAll('img[data-src]');
+  //Lazy Loading Images
+  const imgTargets = document.querySelectorAll('img[data-src]');
 
-    const loadImg = function (entries, observer) {
-      const [entry] = entries;
-      console.log(entry);
-    };
+  const loadImg = function (entries, observer) {
+    const [entry] = entries;
+    console.log(entry);
 
-    const imgObserver = new IntersectionObserver(loadImg, {
-      root: null,
-      threshold: 0,
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+
+      // Replace src with data-src
+      entry.target.src = entry.target.dataset.src;
+
+      // Remove data-src attribute
+      entry.target.removeAttribute('data-src');
+
+      // Unobserve the image
+      observer.unobserve(entry.target);
     });
+
+    //Replace src with data-src
+    //entry.target.src = entry.target.dataset.src;
+  };
+
+  const imgObserver = new IntersectionObserver(loadImg, {
+    root: null,
+    threshold: 0,
   });
 
   imgTargets.forEach(img => imgObserver.observe(img));
-
-  // const imgTargets = document.querySelectorAll('img[data-src]');
-  // setTimeout(function () {
-  //   console.log('here', imgTargets);
-  // }, 3000);
 };
 
 //Debounce Fn
