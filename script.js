@@ -73,9 +73,9 @@ const createCountryCard = function (country, isDetail = false) {
     return `${cardDetail}`;
   } else {
     const card = `<div class="${styling}" data-name="${country.name.common}">
-    <div class="img__container"><img class="country__img" src="${
-      country.flags.png
-    }" alt="${country.flags.alt}" loading="lazy" /> </div>
+    <div class="img__container"><img class="country__img" src="images/lazy-image.png" alt="${
+      country.flags.alt
+    }" loading="lazy" data-src="lazy"/> </div>
           <div class="country__data">
             <h3 class="country__name">${country.name.common}</h3>
             <p class="country__population"><span>Population</span>: ${country.population.toLocaleString()}</p>
@@ -130,7 +130,27 @@ const displayCountry = function (data, isDetail = false) {
       'beforeEnd',
       createCountryCard(country, isDetail)
     );
+
+    //Lazy Loading Images
+    const imgTargets = document.querySelectorAll('img[data-src]');
+
+    const loadImg = function (entries, observer) {
+      const [entry] = entries;
+      console.log(entry);
+    };
+
+    const imgObserver = new IntersectionObserver(loadImg, {
+      root: null,
+      threshold: 0,
+    });
   });
+
+  imgTargets.forEach(img => imgObserver.observe(img));
+
+  // const imgTargets = document.querySelectorAll('img[data-src]');
+  // setTimeout(function () {
+  //   console.log('here', imgTargets);
+  // }, 3000);
 };
 
 //Debounce Fn
