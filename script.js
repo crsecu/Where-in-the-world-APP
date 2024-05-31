@@ -75,7 +75,7 @@ const createCountryCard = function (country, isDetail = false) {
     const card = `<div class="${styling}" data-name="${country.name.common}">
     <div class="img__container"><img class="country__img lazy" src="images/lazy-image.png" alt="${
       country.flags.alt
-    }" loading="lazy" data-src="${country.flags.png}"/> </div>
+    }" data-src="${country.flags.png}"/> </div>
           <div class="country__data">
             <h3 class="country__name">${country.name.common}</h3>
             <p class="country__population"><span>Population</span>: ${country.population.toLocaleString()}</p>
@@ -137,8 +137,7 @@ const displayCountry = function (data, isDetail = false) {
   const imgTargets = document.querySelectorAll('img[data-src]');
 
   const loadImg = function (entries, observer) {
-    const [entry] = entries;
-    console.log(entry);
+    console.log(entries);
 
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
@@ -152,9 +151,6 @@ const displayCountry = function (data, isDetail = false) {
       // Unobserve the image
       observer.unobserve(entry.target);
     });
-
-    //Replace src with data-src
-    //entry.target.src = entry.target.dataset.src;
   };
 
   const imgObserver = new IntersectionObserver(loadImg, {
