@@ -6,6 +6,7 @@ const goBackBtn = document.querySelector('.back__btn');
 // const regionsSelect = document.querySelector('#regions');
 const filterBtn = document.querySelector('.filter__btn');
 const dropdownMenu = document.querySelector('#filter__dropdown');
+const logo = document.querySelector('.title');
 let isDropdownOpen = false;
 
 //This will store all countries data
@@ -156,6 +157,19 @@ const findCountry = function (query) {
   displayCountry(filteredCountries);
 };
 
+function goBack() {
+  filterBtn.classList.remove('hide');
+
+  displayCountry(allCountries);
+  goBackBtn.classList.remove('show');
+  goBackBtn.classList.add('hide');
+  // searchCont.style.display = 'block';
+  searchCont.classList.add('show__me');
+
+  //Clear out input field
+  searchInput.value = '';
+}
+
 //EVENT LISTENERS
 //Give user real time feedback about queried country
 searchInput.addEventListener(
@@ -173,25 +187,18 @@ searchInput.addEventListener(
 );
 
 //Go back to main page
-goBackBtn.addEventListener('click', function () {
-  filterBtn.style.display = 'block';
-
-  displayCountry(allCountries);
-  goBackBtn.classList.remove('show');
-  goBackBtn.classList.add('hide');
-  searchCont.style.display = 'block';
-
-  //Clear out input field
-  searchInput.value = '';
-});
+goBackBtn.addEventListener('click', goBack);
+logo.addEventListener('click', goBack);
 
 //Open Detail View on click
 container.addEventListener('click', function (e) {
   const countryEl = e.target.closest('.country');
   const neighborEl = e.target.classList.contains('country__neighbor');
+  if (!countryEl && !neighborEl) return;
 
   //Hide Filter by Region dropdown in Detail View
-  filterBtn.style.display = 'none';
+  filterBtn.classList.add('hide');
+  searchCont.classList.remove('show__me');
 
   //Open Detail View
   if (countryEl) {
@@ -212,7 +219,7 @@ container.addEventListener('click', function (e) {
     displayCountry(findNeighbor, true);
   }
 
-  searchCont.style.display = 'none';
+  searchCont.classList.add('hide');
   goBackBtn.classList.remove('hide');
   goBackBtn.classList.add('show');
 });
