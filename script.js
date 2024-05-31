@@ -37,36 +37,45 @@ const createCountryCard = function (country, isDetail = false) {
     const getLanguages = Object.values(country.languages);
 
     //Country Detail
+    const neighbors = displayNeighbors(country);
     const cardDetail = `<div class="${styling}" data-name="${
       country.name.common
     }">
-          <img class="country__img" src="${country.flags.png}" alt="${
-      country.flags.alt
-    }"/>
+          <div class="detail__imgContainer"><img class="country__img" src="${
+            country.flags.png
+          }" alt="${country.flags.alt}"/> </div>
+    
           <div class="country__data">
-            <h3 class="country__name">${country.name.common}</h3>
-            <p><span>Native Name</span>: ${nativeName[0].common}
-            </p>
-            <p><span>Population</span>: ${country.population.toLocaleString()}</p>
-            <p><span>Region:</span> ${country.region}</p>
-            <p><span>Region:</span> ${country.subregion}</p>
-            <p><span>Capital:</span> ${
-              country.capital ? country.capital : 'N/A'
-            }</p>
+          <h3 class="country__name">${country.name.common}</h3>
+              <div class="col__wrapper">
+              <div class="col__1">
+                <p><span>Native Name</span>: ${nativeName[0].common}
+                </p>
+                <p><span>Population</span>: ${country.population.toLocaleString()}</p>
+                <p><span>Region:</span> ${country.region}</p>
+                <p><span>Region:</span> ${country.subregion}</p>
+                <p><span>Capital:</span> ${
+                  country.capital ? country.capital : 'N/A'
+                }</p>
+              </div>
             <br>
-            <p><span>Top Level Domain:</span> ${country.tld}</p>
-            <p><span>Currencies:</span> ${getCurrencies}</p>
-            <p><span>Languages:</span> ${getLanguages.join(', ')}</p>
+              <div class="col__2">
+                  <p><span>Top Level Domain:</span> ${country.tld}</p>
+                  <p><span>Currencies:</span> ${getCurrencies}</p>
+                  <p><span>Languages:</span> ${getLanguages.join(', ')}</p>
+              </div>
+              
+              </div>
+              ${neighbors}
           </div>
           </div>`;
 
-    const neighbors = displayNeighbors(country);
-    return `${cardDetail} ${neighbors}`;
+    return `${cardDetail}`;
   } else {
     const card = `<div class="${styling}" data-name="${country.name.common}">
-          <img class="country__img" src="${country.flags.png}" alt="${
-      country.flags.alt
-    }"/>
+    <div class="img__container"><img class="country__img" src="${
+      country.flags.png
+    }" alt="${country.flags.alt}"/> </div>
           <div class="country__data">
             <h3 class="country__name">${country.name.common}</h3>
             <p class="country__population"><span>Population</span>: ${country.population.toLocaleString()}</p>
