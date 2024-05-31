@@ -186,6 +186,7 @@ main {
 input[type='search'] {
   font-size: 1.5rem;
   font-weight: 600;
+  background-color: var(--white);
 }
 
 .search__input::placeholder {
@@ -529,7 +530,8 @@ footer {
 }
 
 footer .footer__link {
-  margin-left: 3px;
   text-decoration: none;
   font-weight: 700;
+  display: inline-block;
+  padding: 0 16px;
 }

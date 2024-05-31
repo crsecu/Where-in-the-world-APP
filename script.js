@@ -137,8 +137,6 @@ const displayCountry = function (data, isDetail = false) {
   const imgTargets = document.querySelectorAll('img[data-src]');
 
   const loadImg = function (entries, observer) {
-    console.log(entries);
-
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
 
@@ -190,7 +188,6 @@ function goBack() {
   displayCountry(allCountries);
   goBackBtn.classList.remove('show');
   goBackBtn.classList.add('hide');
-  // searchCont.style.display = 'block';
   searchCont.classList.add('show__me');
 
   //Clear out input field
