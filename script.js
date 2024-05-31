@@ -75,7 +75,7 @@ const createCountryCard = function (country, isDetail = false) {
     const card = `<div class="${styling}" data-name="${country.name.common}">
     <div class="img__container"><img class="country__img" src="${
       country.flags.png
-    }" alt="${country.flags.alt}"/> </div>
+    }" alt="${country.flags.alt}" loading="lazy" /> </div>
           <div class="country__data">
             <h3 class="country__name">${country.name.common}</h3>
             <p class="country__population"><span>Population</span>: ${country.population.toLocaleString()}</p>
