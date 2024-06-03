@@ -16,7 +16,7 @@
       href="./images/favicon-32x32.png"
     />
     <link rel="stylesheet" href="style.css" />
-
+    <link rel="stylesheet" href="https://unpkg.com/placeholder-loading/dist/css/placeholder-loading.min.css">
     <script defer src="script.js"></script>
     <title>Countries API</title>
   </head>
@@ -77,7 +77,22 @@
         </div>
       </div>
 
-      <div class="container"></div>
+      <div class="container">
+      <!-- Content Loader -->
+      <template id="card-template">
+        <div class="country placeholder">
+          <div class="img__container"><div class="country__img lazy skeleton"></div></div>
+            <div class="country__data">
+              <div class="skeleton skeleton-text skeleton__title"></div>
+              <div class="skeleton skeleton-text skeleton-text__body"></div>
+              <div class="skeleton skeleton-text skeleton-text__body"></div>
+              <div class="skeleton skeleton-text skeleton-text__body"></div>
+            </div>
+        </div>
+      </template>
+      <!-- Content Loader -->
+
+      </div>
     </main>
     <footer>
       <p>Challenge by Frontend Mentor.<a
@@ -90,3 +105,4 @@
     </footer>
   </body>
 </html>
+

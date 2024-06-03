@@ -1,13 +1,24 @@
 const container = document.querySelector('.container');
-const searchInput = document.querySelector('#search-country');
+const cardTemplate = document.getElementById('card-template');
+const searchInput = document.getElementById('search-country');
 const searchCont = document.querySelector('.search__container');
 const goBackBtn = document.querySelector('.back__btn');
 // const regionsCont = document.querySelector('.regions__container');
 // const regionsSelect = document.querySelector('#regions');
 const filterBtn = document.querySelector('.filter__btn');
-const dropdownMenu = document.querySelector('#filter__dropdown');
+const dropdownMenu = document.getElementById('filter__dropdown');
 const logo = document.querySelector('.title');
 let isDropdownOpen = false;
+
+// Render skeleton screen/placeholder cards
+const renderPlaceholderCards = count => {
+  for (let i = 0; i < count; i++) {
+    container.append(cardTemplate.content.cloneNode(true));
+  }
+};
+
+//Render placeholders
+renderPlaceholderCards(20);
 
 //This will store all countries data
 let allCountries = [];
@@ -17,14 +28,19 @@ const fetchCountries = async function (url) {
   try {
     const request = await fetch(url);
     allCountries = await request.json();
+    console.log('HERE ARE ALL COUNTRIES', allCountries);
     displayCountry(allCountries);
   } catch (err) {
-    console.error(err);
+    console.error('CHECK ERROR ', err);
   }
 };
 
-//Initial call to fetch countries
-fetchCountries('https://restcountries.com/v3.1/all');
+// //Initial call to fetch countries
+// fetchCountries('https://restcountries.com/v3.1/all');
+
+fetchCountries(
+  'https://restcountries.com/v3.1/all?fields=name,flags,borders,capital,population,region,subregion,tld,currencies,languages,cca3'
+);
 
 //Function to create country card
 const createCountryCard = function (country, isDetail = false) {
@@ -53,7 +69,7 @@ const createCountryCard = function (country, isDetail = false) {
                 </p>
                 <p><span>Population</span>: ${country.population.toLocaleString()}</p>
                 <p><span>Region:</span> ${country.region}</p>
-                <p><span>Region:</span> ${country.subregion}</p>
+                <p><span>Sub Region:</span> ${country.subregion}</p>
                 <p><span>Capital:</span> ${
                   country.capital ? country.capital : 'N/A'
                 }</p>
@@ -95,6 +111,7 @@ const createCountryCard = function (country, isDetail = false) {
 //Get country name based on country code
 const getCountryName = function (name) {
   const country = allCountries.filter(country => country.cca3 === name);
+  console.log('1', country);
   const result = country[0].name.common;
 
   return result;
