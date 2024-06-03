@@ -569,22 +569,28 @@ footer .footer__link {
 }
 
 .skeleton__title {
-  width: 40%;
-  height: 30px;
-  margin-top: 10px;
-  margin-bottom: 1.75rem;
+  width: 50%;
+  height: 20px;
+  margin-top: 5px;
+  margin-bottom: 1.325rem;
 }
 
 .skeleton-text__body {
-  height: 18px;
-  width: 60%;
-  margin-bottom: 0.9rem;
+  height: 15px;
+  width: 75%;
+  margin-top: 0.9rem;
 }
 
 .skeleton-footer {
   width: 30%;
 }
 
-.placeholder .country__img {
-  height: 200px;
+/* .placeholder .country__data {
+  margin: 0.5rem 1.5rem;
+} */
+
+@media screen and (max-width: 545px) {
+  .placeholder .img__container {
+    height: 170px;
+  }
 }
