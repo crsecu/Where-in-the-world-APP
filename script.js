@@ -39,7 +39,7 @@ const fetchCountries = async function (url) {
 // fetchCountries('https://restcountries.com/v3.1/all');
 
 fetchCountries(
-  'https://restcountries.com/v3.1/all?fields=name,flags,borders,capital,population,region,subregion,tld,currencies,languages,cca3'
+  'https://restcountries.com/v3.1/all?fields=name,flags,borders,capital,population,region,subregion,topLevelDomain,currencies,languages,alpha3Code'
 );
 
 //Function to create country card
