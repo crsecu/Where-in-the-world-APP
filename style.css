@@ -106,8 +106,8 @@ main {
   margin: 0 2.5rem 2rem 2.5rem;
   background-color: var(--white);
   box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
-  border-radius: 0 0 6px 6px;
   cursor: pointer;
+  border-radius: 6px;
 }
 
 .country span,
@@ -116,14 +116,16 @@ main {
 }
 
 .country__img {
-  border-radius: 6px 6px 0 0;
   width: 100%;
   height: 100%;
+  border-radius: 6px 6px 0 0;
 }
 
 .country__data {
   padding: 1.875rem 1.5rem;
   line-height: 180%;
+  border-radius: 0 0 6px 6px;
+  margin: auto 0;
 }
 
 .country__name {
@@ -234,7 +236,7 @@ input[type='search'] {
   padding: 16px 0;
   padding-left: 24px;
   padding-right: 16px;
-  min-width: 240px;
+  /* width: 100% !important; */
   border-radius: 6px;
   box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px;
   border: none;
@@ -352,6 +354,7 @@ footer {
     justify-content: space-between;
     row-gap: 50px;
     margin-bottom: 80px;
+    align-items: stretch;
   }
 
   .country {
@@ -405,10 +408,6 @@ footer {
   /* Styles for screens 768px and wider */
   .country {
     flex: 0 1 30%;
-  }
-
-  .filter__btn {
-    min-width: 160px;
   }
 
   input[type='search'] {
@@ -526,6 +525,10 @@ footer {
   .img__container {
     height: 200px;
   }
+
+  .error-message {
+    font-size: 2.5rem;
+  }
 }
 
 @media only screen and (min-width: 2000px) {
@@ -605,22 +608,40 @@ footer .footer__link {
   box-shadow: rgba(27, 20, 20, 0.366) 0px 2px 8px;
 }
 
-.dark .country .country__data {
-  background-color: var(--dark-blue) !important;
+.dark .country {
+  background-color: var(--dark-blue);
   box-shadow: rgba(27, 20, 20, 0.366) 0px 2px 8px;
 }
 
+.dark .country .country__data {
+  background-color: var(--dark-blue) !important;
+}
+
 .dark .search__container,
-.dark input,
 .dark .filter__btn,
 .dark .dropdown__content,
-.dark .dropdown__content a {
+.dark .dropdown__content {
+  color: var(--white);
+  background-color: var(--dark-blue);
+  box-shadow: rgba(27, 20, 20, 0.366) 0px 2px 8px;
+}
+
+.dark .dropdown a {
+  color: var(--white);
+}
+
+.dark .dropdown a:hover {
+  background-color: rgb(169, 136, 199);
+  color: var(--white);
+}
+
+.dark input {
   color: var(--white);
   background-color: var(--dark-blue);
 }
 
 .dark .country__neighbor {
-  background-color: var(--very-dark-blue);
+  background-color: var(--dark-blue);
   box-shadow: rgba(27, 20, 20, 0.366) 0px 2px 8px;
 }
 
@@ -636,7 +657,17 @@ footer .footer__link {
 }
 
 a:visited {
-  color: rgb(169, 136, 199);
+  color: rgb(137, 61, 209);
+}
+
+.dark .back__btn {
+  color: var(--white);
+  background-color: var(--dark-blue);
+  box-shadow: rgba(27, 20, 20, 0.366) 0px 2px 8px;
+}
+
+.dark .back__btn svg {
+  fill: var(--white);
 }
 
 #change__theme,
@@ -648,7 +679,6 @@ input[type='reset'] {
   padding: 0;
   font: inherit;
   cursor: pointer;
-  outline: inherit;
 }
 
 .theme__switcher {
@@ -664,4 +694,20 @@ input[type='reset'] {
 .moon__solid {
   height: 18px;
   margin-top: 5px;
+}
+
+.error-message {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black color */
+  z-index: 9999; /* Ensure the overlay appears on top of other elements */
 }

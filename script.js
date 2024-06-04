@@ -9,6 +9,19 @@ const logo = document.querySelector('.title');
 const changeTheme = document.getElementById('change__theme');
 let isDropdownOpen = false;
 
+const addOverlay = function () {
+  const overlay = document.createElement('div');
+  overlay.classList.add('overlay');
+  document.body.appendChild(overlay);
+};
+
+const removeOverlay = function () {
+  const overlay = document.querySelector('.overlay');
+  if (overlay) {
+    overlay.remove();
+  }
+};
+
 // Render skeleton screen/placeholder cards
 const renderPlaceholderCards = count => {
   for (let i = 0; i < count; i++) {
@@ -29,16 +42,24 @@ const fetchCountries = async function (url) {
     allCountries = await request.json();
     console.log('HERE ARE ALL COUNTRIES', allCountries);
     displayCountry(allCountries);
+    removeOverlay(); // Remove the overlay if the fetch request is successful
   } catch (err) {
     console.error('CHECK ERROR ', err);
+    const errorMessage = document.createElement('div');
+    errorMessage.classList.add('error-message');
+    errorMessage.textContent =
+      'Something went wrong ☹. Please try again later.';
+    container.innerHTML = '';
+    container.appendChild(errorMessage);
+    addOverlay(); // Add the overlay when the fetch request fails
   }
 };
 
-// //Initial call to fetch countries
-// fetchCountries('https://restcountries.com/v3.1/all');
-fetchCountries(
-  'https://restcountries.com/v3.1/all?fields=name,flags,borders,capital,population,region,subregion,tld,currencies,languages,cca3'
-);
+//Initial call to fetch countries
+fetchCountries('https://restcountries.com/v3.1/all');
+// fetchCountries(
+//   'https://restcountries.com/v3.1/all?fields=name,flags,borders,capital,population,region,subregion,tld,currencies,languages,cca3'
+// );
 
 //Function to create country card
 const createCountryCard = function (country, isDetail = false) {
