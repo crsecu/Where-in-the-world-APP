@@ -3,11 +3,10 @@ const cardTemplate = document.getElementById('card-template');
 const searchInput = document.getElementById('search-country');
 const searchCont = document.querySelector('.search__container');
 const goBackBtn = document.querySelector('.back__btn');
-// const regionsCont = document.querySelector('.regions__container');
-// const regionsSelect = document.querySelector('#regions');
 const filterBtn = document.querySelector('.filter__btn');
 const dropdownMenu = document.getElementById('filter__dropdown');
 const logo = document.querySelector('.title');
+const changeTheme = document.getElementById('change__theme');
 let isDropdownOpen = false;
 
 // Render skeleton screen/placeholder cards
@@ -290,5 +289,21 @@ window.addEventListener('click', function (event) {
   if (isDropdownOpen && !event.target.closest('.dropdown')) {
     dropdownMenu.classList.remove('show');
     isDropdownOpen = false;
+  }
+});
+
+//Toggle theme
+let isDark = false;
+changeTheme.addEventListener('click', function () {
+  const body = document.querySelector('body');
+
+  isDark = !isDark;
+  console.log('is ', isDark);
+
+  if (isDark) {
+    console.log('TRUEEE');
+    body.classList.add('dark');
+  } else {
+    body.classList.remove('dark');
   }
 });
