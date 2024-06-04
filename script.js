@@ -37,9 +37,8 @@ const fetchCountries = async function (url) {
 
 // //Initial call to fetch countries
 // fetchCountries('https://restcountries.com/v3.1/all');
-
 fetchCountries(
-  'https://restcountries.com/v3.1/all?fields=name,flags,borders,capital,population,region,subregion,topLevelDomain,currencies,languages,alpha3Code'
+  'https://restcountries.com/v3.1/all?fields=name,flags,borders,capital,population,region,subregion,tld,currencies,languages,cca3'
 );
 
 //Function to create country card
@@ -140,7 +139,6 @@ const displayNeighbors = function (country) {
 
 // Display either all countries or a single country based on the user's search.
 // When 'isDetail' is set to true, the country card will also show neighboring countries.
-
 const displayCountry = function (data, isDetail = false) {
   container.innerHTML = '';
   data.forEach(country => {
