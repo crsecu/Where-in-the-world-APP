@@ -296,14 +296,18 @@ window.addEventListener('click', function (event) {
 let isDark = false;
 changeTheme.addEventListener('click', function () {
   const body = document.querySelector('body');
-
+  const moon = document.querySelector('.moon');
+  const moonSolid = document.querySelector('.moon__solid');
   isDark = !isDark;
   console.log('is ', isDark);
 
   if (isDark) {
-    console.log('TRUEEE');
     body.classList.add('dark');
+    moon.classList.add('hide');
+    moonSolid.classList.remove('hide');
   } else {
     body.classList.remove('dark');
+    moonSolid.classList.add('hide');
+    moon.classList.remove('hide');
   }
 });

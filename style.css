@@ -82,6 +82,8 @@ body {
 }
 
 header {
+  display: flex;
+  justify-content: space-between;
   background-color: var(--white);
   padding: 1.75rem 1.125rem;
   box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
@@ -635,4 +637,31 @@ footer .footer__link {
 
 a:visited {
   color: rgb(169, 136, 199);
+}
+
+#change__theme,
+input[type='submit'],
+input[type='reset'] {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.theme__switcher {
+  display: flex;
+  gap: 8px;
+}
+
+#change__theme {
+  font-weight: 700;
+}
+
+.moon,
+.moon__solid {
+  height: 18px;
+  margin-top: 5px;
 }
