@@ -235,7 +235,7 @@ input[type='search'] {
   justify-content: space-between;
   align-items: center;
   background-color: var(--white);
-  color: var(--white);
+  color: black;
   /* font-size: 1.125rem; */
   font-weight: 600;
   padding: 16px 0;
@@ -615,6 +615,10 @@ footer .footer__link {
   background-color: var(--very-dark-blue);
 }
 
+.dark a:visited {
+  color: #c0a4da !important;
+}
+
 .dark header {
   color: var(--white) !important;
   background-color: var(--dark-blue) !important;
@@ -645,6 +649,8 @@ footer .footer__link {
 
 .dark .dropdown a:hover {
   background-color: rgb(169, 136, 199);
+  background-color: #551a8b;
+
   color: var(--white);
 }
 
@@ -726,5 +732,5 @@ a {
 }
 
 a:visited {
-  color: rgb(137, 61, 209) !important;
+  color: #551a8b;
 }
