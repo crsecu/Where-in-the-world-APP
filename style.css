@@ -668,10 +668,6 @@ footer .footer__link {
   box-shadow: rgba(27, 20, 20, 0.366) 0px 2px 8px;
 }
 
-a:visited {
-  color: rgb(137, 61, 209) !important;
-}
-
 .dark .back__btn {
   color: var(--white);
   background-color: var(--dark-blue);
@@ -722,4 +718,12 @@ input[type='reset'] {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black color */
   z-index: 9999; /* Ensure the overlay appears on top of other elements */
+}
+
+a {
+  color: var(--white);
+}
+
+a:visited {
+  color: rgb(137, 61, 209) !important;
 }
