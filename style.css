@@ -722,7 +722,7 @@ input[type='reset'] {
 }
 
 a {
-  color: var(--white);
+  color: black;
 }
 
 a:visited {
