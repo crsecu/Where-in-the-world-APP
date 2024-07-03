@@ -40,26 +40,25 @@ const fetchCountries = async function (url) {
   try {
     const request = await fetch(url);
     allCountries = await request.json();
-    console.log('HERE ARE ALL COUNTRIES', allCountries);
     displayCountry(allCountries);
     removeOverlay(); // Remove the overlay if the fetch request is successful
   } catch (err) {
     console.error('CHECK ERROR ', err);
-    const errorMessage = document.createElement('div');
-    errorMessage.classList.add('error-message');
-    errorMessage.textContent =
-      'Something went wrong ☹. Please try again later.';
-    container.innerHTML = '';
-    container.appendChild(errorMessage);
+    showErrorMessage('Something went wrong ☹. Please try again later.');
     addOverlay(); // Add the overlay when the fetch request fails
   }
 };
 
+function showErrorMessage(message) {
+  const errorMessage = document.createElement('div');
+  errorMessage.classList.add('error-message');
+  errorMessage.textContent = message;
+  container.innerHTML = '';
+  container.appendChild(errorMessage);
+}
+
 //Initial call to fetch countries
 fetchCountries('https://restcountries.com/v3.1/all');
-// fetchCountries(
-//   'https://restcountries.com/v3.1/all?fields=name,flags,borders,capital,population,region,subregion,tld,currencies,languages,cca3'
-// );
 
 //Function to create country card
 const createCountryCard = function (country, isDetail = false) {
@@ -107,7 +106,9 @@ const createCountryCard = function (country, isDetail = false) {
 
     return `${cardDetail}`;
   } else {
-    const card = `<div class="${styling}" data-name="${country.name.common}">
+    const card = `<div class="${styling}" data-name="${
+      country.name.common
+    }" tabindex="0">
     <div class="img__container"><img class="country__img lazy" src="images/lazy-image.png" alt="${
       country.flags.alt
     }" data-src="${country.flags.png}"/> </div>
@@ -130,7 +131,6 @@ const createCountryCard = function (country, isDetail = false) {
 //Get country name based on country code
 const getCountryName = function (name) {
   const country = allCountries.filter(country => country.cca3 === name);
-  console.log('1', country);
   const result = country[0].name.common;
 
   return result;
@@ -161,12 +161,18 @@ const displayNeighbors = function (country) {
 // When 'isDetail' is set to true, the country card will also show neighboring countries.
 const displayCountry = function (data, isDetail = false) {
   container.innerHTML = '';
-  data.forEach(country => {
-    container.insertAdjacentHTML(
-      'beforeEnd',
-      createCountryCard(country, isDetail)
+  if (Array.isArray(data) && data.length === 0) {
+    showErrorMessage(
+      "Sorry, we couldn't find any country with that name. Please try again."
     );
-  });
+  } else {
+    data.forEach(country => {
+      container.insertAdjacentHTML(
+        'beforeEnd',
+        createCountryCard(country, isDetail)
+      );
+    });
+  }
 
   //Lazy Loading Images
   const imgTargets = document.querySelectorAll('img[data-src]');
@@ -213,7 +219,6 @@ const findCountry = function (query) {
       country.name.common.toLowerCase().includes(query) ||
       country.name.official.toLowerCase().includes(query)
   );
-  console.log(filteredCountries);
   displayCountry(filteredCountries);
 };
 
@@ -235,7 +240,6 @@ searchInput.addEventListener(
   'input',
   debounce(function () {
     let query = searchInput.value.trim().toLowerCase();
-    console.log('query', query);
 
     if (query) {
       findCountry(query);
@@ -265,8 +269,14 @@ container.addEventListener('click', function (e) {
     const country = allCountries.filter(
       country => country.name.common === countryData
     );
-    //getCountryName(country);
+
     displayCountry(country, true);
+
+    // Set focus to the first focusable element in the country detail
+    const firstFocusableEl = document.querySelector('#hidden-focus');
+    if (firstFocusableEl) {
+      firstFocusableEl.focus();
+    }
   }
 
   //Open Neighbor Detail View
@@ -320,7 +330,6 @@ changeTheme.addEventListener('click', function () {
   const moon = document.querySelector('.moon');
   const moonSolid = document.querySelector('.moon__solid');
   isDark = !isDark;
-  console.log('is ', isDark);
 
   if (isDark) {
     body.classList.add('dark');

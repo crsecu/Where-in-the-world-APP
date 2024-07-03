@@ -91,9 +91,10 @@ header {
 }
 
 .title {
-  font-size: 1.25rem;
+  font-size: 0.75rem;
   font-weight: 800;
   cursor: pointer;
+  text-decoration: none;
 }
 
 main {
@@ -616,7 +617,7 @@ footer .footer__link {
 }
 
 .dark a:visited {
-  color: #c0a4da !important;
+  color: var(--white);
 }
 
 .dark header {
@@ -727,10 +728,19 @@ input[type='reset'] {
   z-index: 9999; /* Ensure the overlay appears on top of other elements */
 }
 
-a {
+a,
+a:visited {
   color: black;
 }
 
-a:visited {
-  color: #551a8b;
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  overflow: hidden;
+  white-space: nowrap;
 }
